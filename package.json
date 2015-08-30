@@ -4,12 +4,11 @@
   "description": "Example usage of webpack with lazy loading angular and requiring npm components",
   "main": "src/app.js",
   "scripts": {
-    "start": "npm run app_sym_link && webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "test": "karma start --single-run",
 
-    "app_sym_link": "[ ! -f ./node_modules/app ] && ln -s $(pwd)/src $(pwd)/node_modules/app",
-
-    "clean": "rm -fR ./dist",
+    "sym-link": "ln -s $(pwd)/src $(pwd)/node_modules/app",
+    "clean": "rm -fR ./build && rm -fR ./dist",
     "dist": "npm run clean && NODE_ENV=production webpack --progress"
   },
   "repository": {
@@ -40,5 +39,12 @@
     "oclazyload": "^1.0.4",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.0"
+  },
+  "devDependencies": {
+    "karma": "^0.13.9",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.2.5"
   }
 }
