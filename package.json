@@ -1,0 +1,41 @@
+{
+  "name": "webpack-example",
+  "version": "1.0.0",
+  "description": "Example usage of webpack with lazy loading angular and requiring npm components",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickhulce/webpack-example"
+  },
+  "keywords": [
+    "webpack",
+    "angular",
+    "lazy-loading"
+  ],
+  "author": "Patrick Hulce <patrick.hulce@gmail.com> (http://patrickhulce.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patrickhulce/webpack-example/issues"
+  },
+  "homepage": "https://github.com/patrickhulce/webpack-example",
+  "dependencies": {
+    "angular": "^1.4.5",
+    "angular-ui-router": "^0.2.15",
+    "css-loader": "^0.16.0",
+    "file-loader": "^0.8.4",
+    "html-loader": "^0.3.0",
+    "jscs-loader": "^0.2.0",
+    "jshint-loader": "^0.8.3",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "oclazyload": "^1.0.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.0",
+    "webpack-alias-helper": "^1.0.2"
+  }
+}
