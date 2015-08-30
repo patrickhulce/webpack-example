@@ -3,6 +3,9 @@ var path = require('path');
 var alias = require('webpack-alias-helper')(__dirname + '/node_modules');
 
 var isProduction = process.env.NODE_ENV === 'production';
+var minify = new webpack.optimize.UglifyJsPlugin({
+  compress: {warnings: false}
+});
 
 module.exports = {
   context: __dirname + '/src',
@@ -21,28 +24,18 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      // { test: /\.js$/, loader: 'jshint-loader', exclude: /node_modules/ },
-      { test: /\.js$/, loader: 'jscs-loader', exclude: /node_modules/ }
+      { test: /\.js$/, loader: 'jscs-loader!jshint-loader', exclude: /node_modules/ }
     ],
     loaders: [
-      { test: /\.route\.js$/, loader: 'ng-route-loader' },
       { test: /\.less$/, loader: 'style!css!less' },
       { test: /\.jpg$/, loader: 'url-loader?limit=10000' },
-      { test: /\.html$/, loader: 'html' }
+      { test: /\.html$/, loader: 'html' },
+      { test: /ng-route-loader/, loader: 'imports?require=false'  }
     ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
-  ].concat(
-    isProduction ?
-      [
-        new webpack.optimize.UglifyJsPlugin({
-          compress: {
-              warnings: false
-          }
-        })
-      ] : []
-  ),
+  ].concat(isProduction ? [minify] : []),
   jscs: {
     preset: 'google',
     disallowSpacesInAnonymousFunctionExpression: false,
@@ -50,7 +43,11 @@ module.exports = {
     requireSpacesInFunctionExpression: {
       beforeOpeningRoundBrace: true
     },
-  }
+  },
+  jshint: {
+    quotmark: 'single',
+    undef: true
+  },
   // resolve: {
   //   alias: alias.modules(['webpack-components'])
   // }
