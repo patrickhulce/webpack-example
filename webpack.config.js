@@ -2,6 +2,8 @@ var webpack = require('webpack');
 var path = require('path');
 var alias = require('webpack-alias-helper')(__dirname + '/node_modules');
 
+var isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   context: __dirname + '/src',
   entry: {
@@ -13,7 +15,7 @@ module.exports = {
     ]
   },
   output: {
-    path: process.env.NODE_ENV === 'production' ? './dist' : './build',
+    path: isProduction ? './dist' : './build',
     publicPath: '/assets/',
     filename: '[name].bundle.js'
   },
@@ -31,7 +33,16 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
-  ],
+  ].concat(
+    isProduction ?
+      [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+              warnings: false
+          }
+        })
+      ] : []
+  ),
   jscs: {
     preset: 'google',
     disallowSpacesInAnonymousFunctionExpression: false,

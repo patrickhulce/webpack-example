@@ -4,9 +4,13 @@
   "description": "Example usage of webpack with lazy loading angular and requiring npm components",
   "main": "src/app.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "npm run app_sym_link && webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": ""
+
+    "app_sym_link": "[ ! -f ./node_modules/app ] && ln -s $(pwd)/src $(pwd)/node_modules/app",
+
+    "clean": "rm -fR ./dist",
+    "dist": "npm run clean && NODE_ENV=production webpack --progress"
   },
   "repository": {
     "type": "git",
